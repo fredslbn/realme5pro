@@ -24,7 +24,7 @@ export KBUILD_BUILD_VERSION="1"
 
 if ! [ -d "${TC_DIR}" ]; then
    echo "Clang not found! Cloning to ${TC_DIR}..."
-   if ! git clone --depth=1 https://gitlab.com/moehacker/clang-r487747.git ${TC_DIR}; then
+   if ! git clone --depth=1 https://github.com/kdrag0n/proton-clang ${TC_DIR}; then
    echo "Cloning failed! Aborting..."
    exit 1
    fi
@@ -80,16 +80,15 @@ make O=out ARCH=arm64 $DEFCONFIG
 echo -e "\nStarting compilation...\n"
 make -j$(nproc --all) O=out ARCH=arm64 \
     CC=clang \
-    LD=ld.lld \
-    AR=llvm-ar \
-    AS=llvm-as \
-    NM=llvm-nm \
-    OBJCOPY=llvm-objcopy \
-    OBJDUMP=llvm-objdump \
-    STRIP=llvm-strip \
-    CROSS_COMPILE=$GCC_64_DIR/bin/aarch64-linux-android- \
-    CROSS_COMPILE_ARM32=$GCC_32_DIR/bin/arm-linux-androideabi- \
-    CLANG_TRIPLE=aarch64-linux-gnu- \
+    #LD=ld.lld \
+    #AR=llvm-ar \
+    #AS=llvm-as \
+    #NM=llvm-nm \
+    #OBJCOPY=llvm-objcopy \
+    #OBJDUMP=llvm-objdump \
+    #STRIP=llvm-strip \
+    CROSS_COMPILE=aarch64-linux-gnu- \
+	CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
     Image.gz-dtb
 
 #if [ -f "out/arch/arm64/boot/Image.gz-dtb" ] && [ -f "out/arch/arm64/boot/dtbo.img" ]; then
